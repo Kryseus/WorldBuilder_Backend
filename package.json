@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/Kryseus/WorldBuilder_Backend#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^4.1.0"
   },
   "devDependencies": {
     "kill-port": "^1.6.1",

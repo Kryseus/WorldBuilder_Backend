@@ -1,10 +1,14 @@
 import express from "express";
-import router from "./routers/router.js";
+import routerMarker from "./routers/routerMarker.js";
+import routerSettings from "./routers/routerSettings.js";
+import routerUser from "./routers/routerUser.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use("/", router);
+app.use("/marker", routerMarker);
+app.use("/settings", routerSettings);
+app.use("/user", routerUser);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
