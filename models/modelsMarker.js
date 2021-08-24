@@ -2,12 +2,14 @@ import mongoose from 'mongoose';
 const { Schema, model } = mongoose;
 
 const postSchema = new Schema({
-  title: { type: String, required: true },
-  cover: { type: String, required: true },
-  author: { type: String, required: true },
-  body: { type: String, required: true },
-  genre: { type: String, enum: ['fantasy', 'sci-fi', 'history', 'sports'], required: true },
-  date: { type: Date, default: Date.now }
+  setting: { type: String, required: true },
+  type: { type: String, required: true },
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  image: { type: String, required: true },
+  parentID: { type: String, required: true },
+  children: { type: String, required: true },
+  visibility: { type: String, required: true }
 });
 
 export default model('Marker', postSchema);
