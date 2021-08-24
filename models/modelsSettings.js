@@ -10,4 +10,4 @@ const postSchema = new Schema({
   date: { type: Date, default: Date.now }
 });
 
-export default model('Marker', postSchema);
+export default model('Setting', postSchema);

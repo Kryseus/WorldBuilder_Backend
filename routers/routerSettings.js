@@ -5,14 +5,14 @@ import {
   createSingleSetting,
   updateSingleSetting,
   deleteSingleSetting,
-} from "../controllers/controllerSettings";
+} from "../controllers/controllerSettings.js";
 
 const routerSettings = Router();
 
-router.get("/", getAllSettings);
-router.get("/:id", getSingleSetting);
-router.post("/", createSingleSetting);
-router.put("/:id", updateSingleSetting);
-router.delete("/:id", deleteSingleSetting);
+routerSettings.get("/", getAllSettings);
+routerSettings.get("/:id", getSingleSetting);
+routerSettings.post("/", createSingleSetting);
+routerSettings.put("/:id", updateSingleSetting);
+routerSettings.delete("/:id", deleteSingleSetting);
 
 export default routerSettings;

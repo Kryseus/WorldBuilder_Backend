@@ -7,12 +7,12 @@ import {
   deleteSingleUser,
 } from "../controllers/controllerUser.js";
 
-const router = Router();
+const routerUser = Router();
 
-router.get("/", getAllUsers);
-router.get("/:id", getSingleUser);
-router.post("/", createSingleUser);
-router.put("/:id", updateSingleUser);
-router.delete("/:id", deleteSingleUser);
+routerUser.get("/", getAllUsers);
+routerUser.get("/:id", getSingleUser);
+routerUser.post("/", createSingleUser);
+routerUser.put("/:id", updateSingleUser);
+routerUser.delete("/:id", deleteSingleUser);
 
 export default routerUser;

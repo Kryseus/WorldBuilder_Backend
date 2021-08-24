@@ -5,14 +5,14 @@ import {
   createSingleMarker,
   updateSingleMarker,
   deleteSingleMarker,
-} from "../controllers/controllerMarker";
+} from "../controllers/controllerMarker.js"
 
 const routerMarker = Router();
 
-router.get("/", getAllMarkers);
-router.get("/:id", getSingleMarker);
-router.post("/", createSingleMarker);
-router.put("/:id", updateSingleMarker);
-router.delete("/:id", deleteSingleMarker);
+routerMarker.get("/", getAllMarkers);
+routerMarker.get("/:id", getSingleMarker);
+routerMarker.post("/", createSingleMarker);
+routerMarker.put("/:id", updateSingleMarker);
+routerMarker.delete("/:id", deleteSingleMarker);
 
 export default routerMarker;

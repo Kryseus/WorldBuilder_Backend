@@ -1,5 +1,8 @@
+import modelsMarker from "../models/modelsMarker.js";
+
 export const getAllMarkers = (req, res) => {
-  res.send("answer getAll");
+  const marker = await modelsMarker.find();
+  res.json(marker);
 };
 
 export const getSingleMarker = (req, res) => {
