@@ -21,7 +21,12 @@
   "homepage": "https://github.com/Kryseus/WorldBuilder_Backend#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^4.1.0"
+    "express-middleware": "^3.4.2",
+    "mongodb": "^4.1.0",
+    "mongoose": "^5.13.8",
+    "multer": "^1.4.3",
+    "path": "^0.12.7",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "kill-port": "^1.6.1",

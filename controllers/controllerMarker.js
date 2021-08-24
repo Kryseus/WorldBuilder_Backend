@@ -1,22 +1,46 @@
 import modelsMarker from "../models/modelsMarker.js";
+import asyncHandler from '../middlewares/asyncHandler.js';
+import ErrorResponse from '../utils/ErrorResponse.js';
 
-export const getAllMarkers = (req, res) => {
-  const marker = await modelsMarker.find();
+export const getAllMarkers = asyncHandler(async (req, res) => {
+  const markers = await modelsMarker.find();
+  res.json(markers);
+});
+
+export const getSingleMarker = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const marker = await modelsMarker.findById(id);
+  if (!marker) throw new ErrorResponse(`Marker with id of ${id} not found`, 404);
   res.json(marker);
-};
+});
 
-export const getSingleMarker = (req, res) => {
-  res.send("answer getSingle");
-};
+export const createSingleMarker = asyncHandler(async (req, res) => {
+  const { title, cover, author, body, genre } = req.body;
+  const newMarker = await modelsMarker.create({
+    title,
+    cover,
+    author,
+    body,
+    genre
+    //Update needed
+  });
+  res.status(201).json(newMarker);
+});
 
-export const createSingleMarker = (req, res) => {
-  res.send("answer createSingle");
-};
+export const updateSingleMarker = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { title, author, body, genre } = req.body;
+  const updatedMarker = await modelsMarker.findOneAndUpdate(
+    { _id: id },
+    { title, author, body, genre },
+    // Update needed
+    { new: true }
+  );
+  res.json(updatedMarker);
+});
 
-export const updateSingleMarker = (req, res) => {
-  res.send("answer updateSingle");
-};
-
-export const deleteSingleMarker = (req, res) => {
-  res.send("answer deleteSingle");
-};
+export const deleteSingleMarker = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  await modelsMarker.deleteOne({ _id: id });
+  res.json({ success: `Post with id of ${id} was deleted` });
+});
