@@ -1,29 +1,22 @@
+import 'dotenv/config.js'
 import express from "express";
 import routerMarker from "./routers/routerMarker.js";
 import routerSettings from "./routers/routerSettings.js";
 import routerUser from "./routers/routerUser.js";
+import authRouter from './routers/authRouter.js';
+import errorHandler from './middlewares/errorHandler.js';
+import verifyToken from './middlewares/verifyToken.js';
+import './db/mongoose.js'
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use("/marker", routerMarker);
+app.use("/markers", routerMarker);
 app.use("/settings", routerSettings);
-app.use("/user", routerUser);
+app.use("/users", routerUser);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
-});
-
-app.post("/", function (req, res) {
-  res.send("Got a POST request");
-});
-
-app.put("/user", function (req, res) {
-  res.send("Got a PUT request at /user");
-});
-
-app.delete("/user", function (req, res) {
-  res.send("Got a DELETE request at /user");
 });
 
 app.listen(port, () => {

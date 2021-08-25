@@ -1,19 +1,14 @@
 import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
+const { Schema, model, Types:{ObjectId} } = mongoose;
 
-const postSchema = new Schema({
-
-  name: { type: String, required: true },
+const settingSchema = new Schema({
+  title: { type: String, required: true },
   description: { type: String, required: true },
   image: { type: String, required: true },
-  role: { type: String, enum: ['author', 'user'], required: true },
-
-  title: { type: String, required: true },
-  cover: { type: String, required: true },
-  author: { type: String, required: true },
-  body: { type: String, required: true },
-  genre: { type: String, enum: ['fantasy', 'sci-fi', 'history', 'sports'], required: true },
+  author: { type: ObjectId, ref: 'User', required: true },
+  players: [{ type: ObjectId, ref: 'User' }],
+  maps: [{type: ObjectId, ref: 'Maps'}],
   date: { type: Date, default: Date.now }
 });
 
-export default model('Setting', postSchema);
+export default model('Setting', settingSchema);

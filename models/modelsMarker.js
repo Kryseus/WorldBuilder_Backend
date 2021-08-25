@@ -1,15 +1,13 @@
 import mongoose from 'mongoose';
-const { Schema, model } = mongoose;
+const { Schema, model , Types:{ObjectId} } = mongoose;
 
-const postSchema = new Schema({
-  setting: { type: String, required: true },
+const markerSchema = new Schema({
+  map: { type: ObjectId, ref: 'Maps', required: true },
   type: { type: String, required: true },
-  name: { type: String, required: true },
+  title: { type: String, required: true },
   description: { type: String, required: true },
-  image: { type: String, required: true },
-  parentID: { type: String, required: true },
-  children: { type: String, required: true },
-  visibility: { type: String, required: true }
+ // image: { type: String, required: true },
+  visibility:[{ type: ObjectId, ref: 'User'  }]
 });
 
-export default model('Marker', postSchema);
+export default model('Marker', markerSchema);
