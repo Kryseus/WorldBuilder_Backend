@@ -17,23 +17,23 @@ export const getSingleSetting = asyncHandler(async (req, res) => {
 });
 
 export const createSingleSetting = asyncHandler(async (req, res) => {
-  const {user} = req
-  const { title, description, image, players, maps } = req.body;
+  const { user } = req;
+  const { title, description, image } = req.body;
   const newSetting = await modelsSetting.create({
     title,
     description,
     image,
     author: user.id,
-    players,
-    maps,
   });
   res.status(201).json(newSetting);
 });
 
 export const updateSingleSetting = asyncHandler(async (req, res) => {
-  const {user} = req
-  // check if user.id === the author id in the setting 
-  const { id } = req.params;
+  const { user, params: {id} } = req;
+  const found = await  modelsSetting.findById(id).populate('author')
+  if(!found) throw new ErrorResponse("Setting does not exist! ", 404);
+  if (!user.id === found.author._id)
+    throw new ErrorResponse("You are not authorized! ", 403); // check if user.id === the author id in the setting
   const { title, description, image, author, players, maps } = req.body;
   const updatedSetting = await modelsSetting.findOneAndUpdate(
     { _id: id },
@@ -45,7 +45,11 @@ export const updateSingleSetting = asyncHandler(async (req, res) => {
 });
 
 export const deleteSingleSetting = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { user, params: {id} } = req;
+  const found = await  modelsSetting.findById(id).populate('author')
+  if(!found) throw new ErrorResponse("Setting does not exist! ", 404);
+  if (!user.id === found.author._id)
+    throw new ErrorResponse("You are not authorized! ", 403);
   await modelsSettings.deleteOne({ _id: id });
   res.json({ success: `Post with id of ${id} was deleted` });
 });
