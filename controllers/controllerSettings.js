@@ -17,16 +17,13 @@ export const getSingleSetting = asyncHandler(async (req, res) => {
 });
 
 export const createSingleSetting = asyncHandler(async (req, res) => {
-  /* 
-    Check if user in request is author
-    if not throw error 
-  */
-  const { title, description, image, author, players, maps } = req.body;
+  const {user} = req
+  const { title, description, image, players, maps } = req.body;
   const newSetting = await modelsSetting.create({
     title,
     description,
     image,
-    author,
+    author: user.id,
     players,
     maps,
   });
@@ -34,9 +31,8 @@ export const createSingleSetting = asyncHandler(async (req, res) => {
 });
 
 export const updateSingleSetting = asyncHandler(async (req, res) => {
-  /* 
-    Check if user in request is same as author in setting
-  */
+  const {user} = req
+  // check if user.id === the author id in the setting 
   const { id } = req.params;
   const { title, description, image, author, players, maps } = req.body;
   const updatedSetting = await modelsSetting.findOneAndUpdate(
