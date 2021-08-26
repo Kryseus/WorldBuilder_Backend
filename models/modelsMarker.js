@@ -6,7 +6,7 @@ const markerSchema = new Schema({
   type: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
- // image: { type: String, required: true },
+ // image: { type: String, required: true },   <----Important! Yes or No?
   visibility:[{ type: ObjectId, ref: 'User'  }]
 });
 

@@ -14,6 +14,6 @@ routerSettings.get("/", getAllSettings);
 routerSettings.get("/:id", getSingleSetting);
 routerSettings.post("/", verifyToken, createSingleSetting);
 routerSettings.put("/:id", verifyToken, updateSingleSetting);
-routerSettings.delete("/:id", deleteSingleSetting);
+routerSettings.delete("/:id", verifyToken, deleteSingleSetting);
 
 export default routerSettings;

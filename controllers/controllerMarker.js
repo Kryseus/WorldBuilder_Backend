@@ -22,7 +22,7 @@ export const createSingleMarker = asyncHandler(async (req, res) => {
     type,
     title,
     description,
-    visibility,
+    visibility, //Needed?
     //Update needed
   });
   res.status(201).json(newMarker);

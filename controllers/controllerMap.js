@@ -23,7 +23,7 @@ export const createSingleMap = asyncHandler(async (req, res) => {
     description,
     image,
     plane,
-    visibility,
+    visibility, //is this needed here?
   });
   res.status(201).json(newMap);
 });
