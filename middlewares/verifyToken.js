@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/modelsAuth.js';
+import User from '../models/authModels.js';
 import asyncHandler from './asyncHandler.js';
 import ErrorResponse from '../utils/ErrorResponse.js';
 

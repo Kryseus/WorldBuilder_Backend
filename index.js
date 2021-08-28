@@ -1,8 +1,8 @@
 import 'dotenv/config.js'
 import express from "express";
-import routerMarker from "./routers/routerMarker.js";
-import routerSettings from "./routers/routerSettings.js";
-import routerAuth from './routers/routerAuth.js';
+import markerRouter from "./routers/markerRouter.js";
+import settingsRouter from "./routers/settingsRouter.js";
+import authRouter from './routers/authRouter.js';
 import errorHandler from './middlewares/errorHandler.js';
 import verifyToken from './middlewares/verifyToken.js';
 import './db/mongoose.js'
@@ -11,9 +11,9 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json())
-app.use("/markers", routerMarker);
-app.use("/settings", routerSettings);
-app.use("/auth", routerAuth);
+app.use("/markers", markerRouter);
+app.use("/settings", settingsRouter);
+app.use("/auth", authRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

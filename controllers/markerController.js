@@ -1,15 +1,15 @@
-import modelsMarker from "../models/modelsMarker.js";
+import markerModels from "../models/markerModels.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
 export const getAllMarkers = asyncHandler(async (req, res) => {
-  const markers = await modelsMarker.find();
+  const markers = await markerModels.find();
   res.json(markers);
 });
 
 export const getSingleMarker = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const marker = await modelsMarker.findById(id);
+  const marker = await markerModels.findById(id);
   if (!marker)
     throw new ErrorResponse(`Marker with id of ${id} not found`, 404);
   res.json(marker);
@@ -17,7 +17,7 @@ export const getSingleMarker = asyncHandler(async (req, res) => {
 
 export const createSingleMarker = asyncHandler(async (req, res) => {
   const { map, type, title, description, visibility } = req.body;
-  const newMarker = await modelsMarker.create({
+  const newMarker = await markerModels.create({
     map,
     type,
     title,
@@ -30,7 +30,7 @@ export const createSingleMarker = asyncHandler(async (req, res) => {
 export const updateSingleMarker = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { map, type, title, description, visibility } = req.body;
-  const updatedMarker = await modelsMarker.findOneAndUpdate(
+  const updatedMarker = await markerModels.findOneAndUpdate(
     { _id: id },
     { map, type, title, description, visibility },
     // Update needed
@@ -41,6 +41,6 @@ export const updateSingleMarker = asyncHandler(async (req, res) => {
 
 export const deleteSingleMarker = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  await modelsMarker.deleteOne({ _id: id });
+  await markerModels.deleteOne({ _id: id });
   res.json({ success: `Post with id of ${id} was deleted` });
 });
