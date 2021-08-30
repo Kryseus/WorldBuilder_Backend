@@ -4,7 +4,6 @@ import markerRouter from "./routers/markerRouter.js";
 import settingsRouter from "./routers/settingsRouter.js";
 import authRouter from './routers/authRouter.js';
 import errorHandler from './middlewares/errorHandler.js';
-import verifyToken from './middlewares/verifyToken.js';
 import characterRouter from "./routers/characterRouter.js"
 import mapRouter from './routers/mapRouter.js';
 import './db/mongoose.js'

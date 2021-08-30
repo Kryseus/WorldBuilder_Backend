@@ -11,4 +11,5 @@ const settingSchema = new Schema({
   date: { type: Date, default: Date.now }
 });
 
-export default model('Setting', settingSchema);
+const Setting = model('Setting', settingSchema)
+export { Setting as default, ObjectId};
