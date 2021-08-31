@@ -1,4 +1,5 @@
 import mapModels from "../models/mapModels.js";
+import settingsModels from "../models/settingsModels.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
@@ -15,9 +16,9 @@ export const getSingleMap = asyncHandler(async (req, res) => {
 });
 
 export const createSingleMap = asyncHandler(async (req, res) => {
-  const { map, type, title, description, image, plane, visibility } = req.body;
+  const { setting, type, title, description, image, plane, visibility } = req.body;
   const newMap = await mapModels.create({
-    map,
+    setting,
     type,
     title,
     description,
@@ -25,6 +26,11 @@ export const createSingleMap = asyncHandler(async (req, res) => {
     plane,
     visibility,
   });
+ await settingsModels.findOneAndUpdate(
+    { _id: setting },
+    { $addToSet: {maps: newMap._id }},
+    { new: true }
+  );
   res.status(201).json(newMap);
 });
 

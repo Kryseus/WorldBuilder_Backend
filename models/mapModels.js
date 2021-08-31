@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const { Schema, model , Types:{ObjectId} } = mongoose;
 
 const mapSchema = new Schema({
-  map: { type: ObjectId, ref: 'Settings', required: true },
+  setting: { type: ObjectId, ref: 'Settings', required: true },
   type: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
