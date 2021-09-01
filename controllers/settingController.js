@@ -10,7 +10,7 @@ export const getAllSettings = asyncHandler(async (req, res) => {
 
 export const getSingleSetting = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const setting = await settingsModel.findById(id);
+  const setting = await settingsModel.findById(id).populate("maps");
   if (!setting)
     throw new ErrorResponse(`Setting with id of ${id} not found`, 404);
   res.json(setting);
@@ -41,7 +41,6 @@ export const updateSingleSetting = asyncHandler(async (req, res) => {
   const updatedSetting = await settingsModel.findOneAndUpdate(
     { _id: id },
     { title, description, image, author, players, maps },
-    // Update needed
     { new: true }
   );
   res.json(updatedSetting);

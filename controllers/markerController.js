@@ -16,23 +16,31 @@ export const getSingleMarker = asyncHandler(async (req, res) => {
 });
 
 export const createSingleMarker = asyncHandler(async (req, res) => {
-  const { map, type, title, description, visibility } = req.body;
+  const { map, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
   const newMarker = await markerModels.create({
-    map,
-    type,
-    title,
-    description,
-    visibility,
+    map,        
+    type,                    
+    title,                    
+    description,              
+    image,                                    
+    author,    
+    players,                 
+    date,                    
+    race,                                     
+    personality,                             
+    background,                             
+    canvas,
+    visibility
   });
   res.status(201).json(newMarker);
 });
 
 export const updateSingleMarker = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { map, type, title, description, visibility } = req.body;
+  const { map, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
   const updatedMarker = await markerModels.findOneAndUpdate(
     { _id: id },
-    { map, type, title, description, visibility },
+    { map, type, title, description, image, author, players, date, race, personality, background, canvas, visibility },
     // Update needed
     { new: true }
   );
@@ -78,6 +86,6 @@ export const removeVisibility = asyncHandler(async (req, res) => {
 
 export const getVisibilityByUser = asyncHandler(async (req, res) => {
   const { user, params: { userId }, } = req;
-  const characters = await markerModels.find({ players: userId});
-  res.json(characters);
+  const marker = await markerModels.find({ players: userId});
+  res.json(marker);
 });

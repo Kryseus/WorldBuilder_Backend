@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import '../models/mapModels.js';
+import '../models/settingsModels.js';
+import '../models/markerModels.js';
 
 (async () => {
   try {

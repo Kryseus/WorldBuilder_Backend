@@ -88,6 +88,6 @@ export const removeVisibility = asyncHandler(async (req, res) => {
 
 export const getVisibilityByUser = asyncHandler(async (req, res) => {
   const { user, params: { userId }, } = req;
-  const characters = await mapModels.find({ players: userId});
-  res.json(characters);
+  const maps = await mapModels.find({ players: userId});
+  res.json(maps);
 });

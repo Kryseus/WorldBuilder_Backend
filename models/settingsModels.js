@@ -7,7 +7,7 @@ const settingSchema = new Schema({
   image: { type: String, required: true },
   author: { type: ObjectId, ref: 'User', required: true },
   players: [{ type: ObjectId, ref: 'User' }],
-  maps: [{type: ObjectId, ref: 'Maps'}],
+  maps: [{type: ObjectId, ref: 'Map'}],
   date: { type: Date, default: Date.now }
 });
 
