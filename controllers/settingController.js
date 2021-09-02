@@ -1,4 +1,4 @@
-import settingsModel, {ObjectId} from "../models/settingsModels.js";
+import settingsModel, { ObjectId } from "../models/settingsModels.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import nodemailer from "nodemailer"
@@ -55,7 +55,7 @@ export const deleteSingleSetting = asyncHandler(async (req, res) => {
   if (!found) throw new ErrorResponse("Setting does not exist! ", 404);
   if (!user.id === found.author._id)
     throw new ErrorResponse("You are not authorized! ", 403);
-  await settingsModels.deleteOne({ _id: id });
+  await settingsModel.deleteOne({ _id: id });
   res.json({ success: `Post with id of ${id} was deleted` });
 });
 

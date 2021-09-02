@@ -3,6 +3,7 @@ const { Schema, model , Types:{ObjectId} } = mongoose;
 
 const mapSchema = new Schema({
   setting: { type: ObjectId, ref: 'Settings', required: true },
+  marker: [{type: ObjectId, ref: 'Marker'}],
   type: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },

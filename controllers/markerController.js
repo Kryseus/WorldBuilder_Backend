@@ -1,4 +1,5 @@
 import markerModels from "../models/markerModels.js";
+import mapModels from "../models/mapModels.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 
@@ -16,32 +17,37 @@ export const getSingleMarker = asyncHandler(async (req, res) => {
 });
 
 export const createSingleMarker = asyncHandler(async (req, res) => {
-  const { map, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
+  const { user } = req;
+  const { maps, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
   const newMarker = await markerModels.create({
-    map,        
-    type,                    
-    title,                    
-    description,              
-    image,                                    
-    author,    
-    players,                 
-    date,                    
-    race,                                     
-    personality,                             
-    background,                             
+    maps,
+    type,
+    title,
+    description,
+    image,
+    author: user._id,
+    players,
+    date,
+    race,
+    personality,
+    background,
     canvas,
-    visibility
+    visibility,
   });
+  await mapModels.findOneAndUpdate(
+    { _id: maps },
+    { $addToSet: { marker: newMarker._id } },
+    { new: true }
+  );
   res.status(201).json(newMarker);
 });
 
 export const updateSingleMarker = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { map, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
+  const { maps, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
   const updatedMarker = await markerModels.findOneAndUpdate(
     { _id: id },
-    { map, type, title, description, image, author, players, date, race, personality, background, canvas, visibility },
-    // Update needed
+    { maps, type, title, description, image, author, players, date, race, personality, background, canvas, visibility },
     { new: true }
   );
   res.json(updatedMarker);
@@ -53,14 +59,21 @@ export const deleteSingleMarker = asyncHandler(async (req, res) => {
   res.json({ success: `Post with id of ${id} was deleted` });
 });
 
-
 // added 30.08.
 export const grantVisibility = asyncHandler(async (req, res) => {
-  const { user, params: { id, userId }, } = req;
+  const {
+    user,
+    params: { id, userId },
+  } = req;
   const found = await markerModels.findById(id);
   if (!found) throw new ErrorResponse("Setting does not exist", 404);
-  if (found.author.toString() !== user.id.toString()) throw new ErrorResponse("You can only invite player to your own games", 404);
-  if(found.players.includes(userId)) throw new ErrorResponse("Player already in setting", 403);
+  if (found.author.toString() !== user.id.toString())
+    throw new ErrorResponse(
+      "You can only invite player to your own games",
+      404
+    );
+  if (found.players.includes(userId))
+    throw new ErrorResponse("Player already in setting", 403);
   const updatedArray = await markerModels.findOneAndUpdate(
     { _id: id },
     { $addToSet: { players: userId } },
@@ -69,13 +82,20 @@ export const grantVisibility = asyncHandler(async (req, res) => {
   res.json(updatedArray);
 });
 
-
 export const removeVisibility = asyncHandler(async (req, res) => {
-  const { user, params: { id, userId }, } = req;
+  const {
+    user,
+    params: { id, userId },
+  } = req;
   const found = await markerModels.findById(id);
   if (!found) throw new ErrorResponse("Setting does not exist", 404);
-  if (found.author.toString() !== user.id.toString()) throw new ErrorResponse("You can only invite player to your own games", 404);
-  if(!found.players.includes(userId)) throw new ErrorResponse("Player is not in the setting", 404);
+  if (found.author.toString() !== user.id.toString())
+    throw new ErrorResponse(
+      "You can only invite player to your own games",
+      404
+    );
+  if (!found.players.includes(userId))
+    throw new ErrorResponse("Player is not in the setting", 404);
   const updatedArray = await markerModels.findOneAndUpdate(
     { _id: id },
     { $pull: { players: userId } },
@@ -85,7 +105,10 @@ export const removeVisibility = asyncHandler(async (req, res) => {
 });
 
 export const getVisibilityByUser = asyncHandler(async (req, res) => {
-  const { user, params: { userId }, } = req;
-  const marker = await markerModels.find({ players: userId});
+  const {
+    user,
+    params: { userId },
+  } = req;
+  const marker = await markerModels.find({ players: userId });
   res.json(marker);
 });

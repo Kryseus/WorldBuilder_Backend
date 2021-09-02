@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const { Schema, model , Types:{ObjectId} } = mongoose;
 
 const markerSchema = new Schema({
-  map: { type: ObjectId, ref: 'Map', required: true },        //  The map the marker is connected to
+  maps: { type: ObjectId, ref: 'Map', required: true },        //  The map the marker is connected to
   type: { type: String, required: true },                     //  Character/Marker 
   title: { type: String, required: true },                    //  Name
   description: { type: String, required: true },              //  Description, duh
@@ -14,8 +14,7 @@ const markerSchema = new Schema({
   personality: { type: String },                              //  The Thing most people are missing
   background: { type: String },                               //  Backgroundstory of Place or Charakter
   canvas: { type: String },                                   //  Write whatever you want
- 
-  visibility:[{ type: ObjectId, ref: 'User'  }]               //  What is visible to Users
+  visibility: [{ type: ObjectId, ref: 'User'  }]               //  What is visible to Users
 });
 
 export default model('Marker', markerSchema);

@@ -10,7 +10,7 @@ export const getAllMaps = asyncHandler(async (req, res) => {
 
 export const getSingleMap = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const Map = await mapModels.findById(id);
+  const Map = await mapModels.findById(id).populate("Marker");
   if (!Map) throw new ErrorResponse(`Map with id of ${id} not found`, 404);
   res.json(Map);
 });
@@ -50,13 +50,9 @@ export const deleteSingleMap = asyncHandler(async (req, res) => {
   await mapModels.deleteOne({ _id: id });
   res.json({ success: `Post with id of ${id} was deleted` });
 });
+
 // Non-geo maps Leaflet -> https://leafletjs.com/examples/crs-simple/crs-simple.html
-//PUT /map/:mapId/enable/:userId -> Adding user id to visibility array
-//PUT  /map/:mapId/disable/:userId -> Remove user id from visibility array
-//GET /map/:userId/enabled -> Get list of maps where user is in visibility array
 
-
-// added 30.08.
 export const grantVisibility = asyncHandler(async (req, res) => {
   const { user, params: { id, userId }, } = req;
   const found = await mapModels.findById(id);

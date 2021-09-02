@@ -16,7 +16,7 @@ const markerRouter = Router();
 markerRouter.get("/", getAllMarkers);
 markerRouter.get("/:id", getSingleMarker);
 markerRouter.get("/:userId/user", getVisibilityByUser);
-markerRouter.post("/", createSingleMarker);
+markerRouter.post("/", verifyToken, createSingleMarker);
 markerRouter.put("/:id", updateSingleMarker);
 markerRouter.put("/:id/visible/:userId", verifyToken, grantVisibility);
 markerRouter.put("/:id/invisible/:userId", verifyToken, removeVisibility); 
