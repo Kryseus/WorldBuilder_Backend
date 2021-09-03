@@ -13,9 +13,9 @@ export const signUp = asyncHandler(async (req, res) => {
   const found = await User.findOne({ email });
   if (found) throw new ErrorResponse('Email is already taken', 403);
   const hashPassword = await bcrypt.hash(password, 5);
-  const { _id } = await User.create({ name, email, password: hashPassword });   
-  const token = generateToken({ _id }, process.env.JWT_SECRET);
-  res.status(200).json({ token });
+  const newUser = await User.create({ name, email, password: hashPassword });   
+  const token = generateToken({ _id: newUser._id }, process.env.JWT_SECRET);
+  res.status(200).json({ token, user: newUser });
 });
 
 
@@ -27,7 +27,8 @@ export const signIn = asyncHandler(async (req, res) => {
   const match = await bcrypt.compare(password, found.password);
   if (!match) throw new ErrorResponse('Password is not correct', 401);
   const token = generateToken({ _id: found._id }, process.env.JWT_SECRET);
-  res.status(200).json({ token });
+  found.password = undefined;
+  res.status(200).json({ token, user: found });
 });
 
 export const getUserInfo = asyncHandler(async (req, res) => res.status(200).json(req.user));
