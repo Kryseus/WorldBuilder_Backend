@@ -28,6 +28,7 @@ export const createSingleSetting = asyncHandler(async (req, res) => {
   res.status(201).json(newSetting);
 });
 
+
 export const updateSingleSetting = asyncHandler(async (req, res) => {
   const {
     user,
