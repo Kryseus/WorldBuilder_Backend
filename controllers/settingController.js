@@ -90,7 +90,7 @@ export const kickUser = asyncHandler(async (req, res) => {
 });
 
 export const getSettingsByUser = asyncHandler(async (req, res) => {
-  const { user, params: { userId }, } = req;
-  const settings = await settingsModel.find({ players: userId});
+  const { user } = req;
+  const settings = await settingsModel.find({ $or: [{ author: user._id }, { players: [user.id] }] });
   res.json(settings);
 });

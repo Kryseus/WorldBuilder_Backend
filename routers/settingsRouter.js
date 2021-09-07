@@ -13,9 +13,9 @@ import verifyToken from '../middlewares/verifyToken.js'
 
 const settingsRouter = Router();
 
-settingsRouter.get("/", getAllSettings);
+settingsRouter.get("/",verifyToken, getAllSettings);
+settingsRouter.get("/user",verifyToken, getSettingsByUser); //added 30.08.
 settingsRouter.get("/:id", getSingleSetting);
-settingsRouter.get("/:userId/user", getSettingsByUser); //added 30.08.
 settingsRouter.post("/", verifyToken, createSingleSetting);
 settingsRouter.put("/:id", verifyToken, updateSingleSetting);
 settingsRouter.put("/:id/invite/:userId", verifyToken, inviteUser);

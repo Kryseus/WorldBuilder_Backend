@@ -16,13 +16,14 @@ export const getSingleMap = asyncHandler(async (req, res) => {
 });
 
 export const createSingleMap = asyncHandler(async (req, res) => {
-  const { setting, type, title, description, image, plane, visibility } = req.body;
+  const { setting, type, title, description, image, plane, visibility, bounds } = req.body;
   const newMap = await mapModels.create({
     setting,
     type,
     title,
     description,
     image,
+    bounds,
     plane,
     visibility,
   });
