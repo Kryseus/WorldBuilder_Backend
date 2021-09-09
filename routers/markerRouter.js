@@ -14,7 +14,7 @@ import verifyToken from '../middlewares/verifyToken.js'
 const markerRouter = Router();
 
 markerRouter.get("/", getAllMarkers);
-markerRouter.get("/:id", getSingleMarker);
+markerRouter.get("/:id",verifyToken, getSingleMarker);
 markerRouter.get("/:userId/user", getVisibilityByUser);
 markerRouter.post("/", verifyToken, createSingleMarker);
 markerRouter.put("/:id", updateSingleMarker);

@@ -19,7 +19,7 @@ export const getSingleMarker = asyncHandler(async (req, res) => {
 export const createSingleMarker = asyncHandler(async (req, res) => {
   const { user } = req;
   console.log(req.body)
-  const { map, type, title, description, image, coords, author, players, date, race, personality, background, canvas, visibility } = req.body;
+  const { map, type, title, description, image, coords, author, players, date, nestedMap,race, personality, background, canvas, visibility } = req.body;
   const newMarker = await markerModels.create({
     type,
     title,
@@ -27,6 +27,7 @@ export const createSingleMarker = asyncHandler(async (req, res) => {
     image,
     coords, 
     map,
+    nestedMap,
     author: user._id,
     players,
     date,
