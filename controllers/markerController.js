@@ -18,13 +18,15 @@ export const getSingleMarker = asyncHandler(async (req, res) => {
 
 export const createSingleMarker = asyncHandler(async (req, res) => {
   const { user } = req;
-  const { maps, type, title, description, image, author, players, date, race, personality, background, canvas, visibility } = req.body;
+  console.log(req.body)
+  const { map, type, title, description, image, coords, author, players, date, race, personality, background, canvas, visibility } = req.body;
   const newMarker = await markerModels.create({
-    maps,
     type,
     title,
     description,
     image,
+    coords, 
+    map,
     author: user._id,
     players,
     date,
@@ -35,7 +37,7 @@ export const createSingleMarker = asyncHandler(async (req, res) => {
     visibility,
   });
   await mapModels.findOneAndUpdate(
-    { _id: maps },
+    { _id: map },
     { $addToSet: { marker: newMarker._id } },
     { new: true }
   );

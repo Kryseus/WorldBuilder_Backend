@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 const { Schema, model , Types:{ObjectId} } = mongoose;
 
 const markerSchema = new Schema({
-  maps: { type: ObjectId, ref: 'Map', required: true },        //  The map the marker is connected to
   type: { type: String, required: true },                     //  Character/Marker 
   title: { type: String, required: true },                    //  Name
   description: { type: String, required: true },              //  Description, duh
   image: { type: String },                                    //  Image of Character or map
+  map: { type: ObjectId, ref: 'Map'},    
+  coords: [Number],                    //  The map the marker is connected to
   author: { type: ObjectId, ref: 'User', required: true },    //  Owner of Setting
   players: [{ type: ObjectId, ref: 'User' }],                 //  By Author invited User 
   date: { type: Date, default: Date.now },                    //  You guys don't have watches?

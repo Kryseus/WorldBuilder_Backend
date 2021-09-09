@@ -10,7 +10,7 @@ export const getAllMaps = asyncHandler(async (req, res) => {
 
 export const getSingleMap = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const Map = await mapModels.findById(id).populate("Marker");
+  const Map = await mapModels.findById(id).populate("marker");
   if (!Map) throw new ErrorResponse(`Map with id of ${id} not found`, 404);
   res.json(Map);
 });
